@@ -1,11 +1,5 @@
 require 'totrello'
 
-describe "#initialize" do
-  it 'fails without having the correct information' do
-    expect{Totrello::Trelloize.new(nil)}.to raise_error
-  end
-end
-
 describe '#find_todo_items' do
   it 'returns a hash of todo items from a directory'do
     todo = ToDoFind.new
