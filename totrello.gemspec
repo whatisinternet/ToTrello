@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["joshteeter@gmail.com"]
   spec.summary       = ["Turns todo items into trello cards."]
   spec.description   = ["This will take the todo items in your code and turn them into trello cards"]
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/whatisinternet/ToTrello"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
