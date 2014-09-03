@@ -3,10 +3,10 @@ rvm:
   - 2.1.1
   - 2.1.0
   - 2.0.0-p247
-  - jruby-18mode
-  - jruby-19mode
-  - rbx-2
-  - ruby-head
   - jruby-head
+gemfile: Gemfile
 # uncomment this line if your project needs to run something other than `rake`:
-# script: bundle exec rspec spec
+script:
+    gem build totrello.gemspec
+    gem install totrello
+    bundle exec rspec test/totrello_spec.rb
