@@ -19,18 +19,21 @@ Install it yourself as:
 
 ## Usage
 
- + You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN
- + Generate your TRELLO_DEVELOPER_PUBLIC_KEY at: [https://trello.com/1/appKey/generate](https://trello.com/1/appKey/generate)
- + Generate your TRELLO_MEMBER_TOKEN at: https://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write
+### You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN
+Generate your TRELLO_DEVELOPER_PUBLIC_KEY at: [https://trello.com/1/appKey/generate](https://trello.com/1/appKey/generate)
+Generate your TRELLO_MEMBER_TOKEN at: https://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write
+
 
     $ export TRELLO_DEVELOPER_PUBLIC_KEY='[Your key here]'
     $ export TRELLO_MEMBER_TOKEN='[Your key here]'
+    
 
+### To Index the current working folder and create trello cards for it
 
-    ### To Index the current working folder and create trello cards for it
     $ ToTrello
 
-    ### To index and create cards for another folder
+### To index and create cards for another folder
+
     $ ToTrello [some other folder with full path]
 
 ## Contributing
