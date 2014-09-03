@@ -5,7 +5,7 @@ TODO: Turns Todo items into Trello cards
 
 ## Notes
 
-This is very early in development and makes several assumptions. It's also my first gem so keep that in mind.
+This is very early in development and makes several assumptions.
  + As it stands you cannot specify the board you want todo items posted to. They are always posted to a board with the projects name
  + Todo items are placed into the To Do list by default
 
@@ -23,15 +23,15 @@ Install it yourself as:
  + Generate your TRELLO_DEVELOPER_PUBLIC_KEY at: [https://trello.com/1/appKey/generate](https://trello.com/1/appKey/generate)
  + Generate your TRELLO_MEMBER_TOKEN at: https://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write
 
-### Sample .rb file to use totrello
-    require 'totrello'
+    $ export TRELLO_DEVELOPER_PUBLIC_KEY='[Your key here]'
+    $ export TRELLO_MEMBER_TOKEN='[Your key here]'
 
-    TRELLO_DEVELOPER_PUBLIC_KEY = [DEVELOPER_PK]
-    TRELLO_MEMBER_TOKEN = [MEMBER_TOKEN]
 
-    # WARNING: If nil is left in the new initializer totrello will assume you want to use the current working directory
-    totrel = Totrello::Trelloize.new(nil)
-    totrel.find_todo_items
+    ### To Index the current working folder and create trello cards for it
+    $ ToTrello
+
+    ### To index and create cards for another folder
+    $ ToTrello [some other folder with full path]
 
 ## Contributing
 
