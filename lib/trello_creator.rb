@@ -26,7 +26,6 @@ class TrelloCreator
   end
 
   def find_board(name)
-    #Trello::Board.find('AdKScU1x')
     out = ''
     Trello::Board.all.each do |board|
       if board.name.upcase == name.upcase
