@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/whatisinternet/ToTrello.svg?branch=master)](https://travis-ci.org/whatisinternet/ToTrello)
 # Totrello
 
 TODO: Turns Todo items into Trello cards
