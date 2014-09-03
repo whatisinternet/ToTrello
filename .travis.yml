@@ -6,4 +6,5 @@ rvm:
   - 1.9.3-p194
 # uncomment this line if your project needs to run something other than `rake`:
 script:
+    gem install bundler
     bundle exec rspec test/totrello_spec.rb
