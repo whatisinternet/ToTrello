@@ -33,7 +33,11 @@ class TrelloCreator
         out = board.id
       end
     end
-    Trello::Board.find(out)
+    if out == ''
+      nil
+    else
+      Trello::Board.find(out)
+    end
   end
 
   def find_list(board, list_name)
