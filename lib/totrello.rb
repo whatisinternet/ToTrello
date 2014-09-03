@@ -14,13 +14,13 @@ module Totrello
         @trello = TrelloCreator.new
         @directory = directory
       rescue
-        puts "It looks like you're missing some details:\n\n\n"
-        puts "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"
-        puts "   \nYou can generate the TRELLO_DEVELOPER_PUBLIC_KEY at:\n"
-        puts "        \nhttps://trello.com/1/appKey/generate\n"
-        puts "   \nYou can generate the TRELLO_MEMBER_TOKEN at:\n "
-        puts "\nhttps://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n"
-        exit!(-1)
+        error_data =  "It looks like you're missing some details:\n\n\n"
+        error_data += "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"
+        error_data += "   \nYou can generate the TRELLO_DEVELOPER_PUBLIC_KEY at:\n"
+        error_data += "        \nhttps://trello.com/1/appKey/generate\n"
+        error_data += "   \nYou can generate the TRELLO_MEMBER_TOKEN at:\n "
+        error_data += "\nhttps://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n"
+        raise CustomException.new(error: error_data)
       end
 
       #find_todo_items
@@ -41,7 +41,7 @@ module Totrello
     end
 
     def test_find_todo_items
-      puts @directory
+
       todo = ToDoFind.new
       todos = todo.search(@directory)
 
@@ -53,7 +53,6 @@ module Totrello
 
     end
 
-    private
     def gen_description(file, todo)
       out =  "TODO item found by ToTrello\n"
       out += "Filename: #{file}\n"

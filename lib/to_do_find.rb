@@ -31,6 +31,7 @@ class ToDoFind
 
   private
   def find_todo(file)
+    @out = []
     histories = File.readlines(file)
     line_num = 0
     histories.each do |hist|
@@ -41,13 +42,25 @@ class ToDoFind
       todo_location ||= is_todo?( hist, ' TODO' )
       todo_location ||= is_todo?( hist, '#TODO:' )
       todo_location ||= is_todo?( hist, '#TODO' )
-      unless todo_location.nil?  #TODO What is this?
+      if todo_location.nil?  #TODO What is this?
+
+        unless hist.start_with? ('#TODO' || '# TODO' || '#TODO:' || '# TODO:')
+          todo_and_location = {:todo => hist.split('TODO')[1],
+                               :location => line_num}
+          @out.append(todo_and_location)
+        end
+
+
+      else
         temp_string_array = hist.split(' ')
         todo = hist.split(' ')[(todo_location + 1)..((temp_string_array.length) - 1)].join(' ')
         todo_and_location = {:todo => todo,
                              :location => line_num}
-        @out = [todo_and_location]
+        @out.append(todo_and_location)
       end
+
+
+
     end
     @out
   end
