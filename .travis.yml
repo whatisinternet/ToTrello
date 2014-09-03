@@ -4,9 +4,6 @@ rvm:
   - 2.1.0
   - 2.0.0-p247
   - jruby-head
-gemfile: Gemfile
 # uncomment this line if your project needs to run something other than `rake`:
 script:
-    gem build totrello.gemspec
-    gem install totrello
     bundle exec rspec test/totrello_spec.rb
