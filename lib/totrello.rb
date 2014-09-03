@@ -20,7 +20,7 @@ module Totrello
         error_data += "        \nhttps://trello.com/1/appKey/generate\n"
         error_data += "   \nYou can generate the TRELLO_MEMBER_TOKEN at:\n "
         error_data += "\nhttps://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n"
-        raise CustomException.new(error: error_data)
+        #raise CustomException.new(error: error_data)
       end
 
       #find_todo_items
