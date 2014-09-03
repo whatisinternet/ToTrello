@@ -29,6 +29,7 @@ class ToDoFind
     todos
   end
 
+  #TODO: Kind of important but this doesn't seem to be working...
   private
   def find_todo(file)
     @out = []
@@ -42,18 +43,10 @@ class ToDoFind
       todo_location ||= is_todo?( hist, ' TODO' )
       todo_location ||= is_todo?( hist, '#TODO:' )
       todo_location ||= is_todo?( hist, '#TODO' )
-      if todo_location.nil?  #TODO What is this?
-
-        unless hist.start_with? ('#TODO' || '# TODO' || '#TODO:' || '# TODO:')
-          todo_and_location = {:todo => hist.split('TODO')[1],
-                               :location => line_num}
-          @out.append(todo_and_location)
-        end
-
-
-      else
+      unless todo_location.nil?
         temp_string_array = hist.split(' ')
         todo = hist.split(' ')[(todo_location + 1)..((temp_string_array.length) - 1)].join(' ')
+        puts "Found! #{todo}"
         todo_and_location = {:todo => todo,
                              :location => line_num}
         @out.append(todo_and_location)

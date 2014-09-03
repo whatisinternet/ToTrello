@@ -9,7 +9,8 @@ class TrelloCreator
   end
 
   def create_card(board, name, description, list_name)
-    unless card_exists?(board, list_name, name[:todo])
+    list_names = ['To Do', 'Doing', 'Done']
+    unless card_exists?(board, list_names, name[:todo])
       card = Trello::Card.create(name: name[:todo], list_id: self.find_list(board, list_name), description: description)
       card.save
     end
@@ -39,13 +40,17 @@ class TrelloCreator
     board.lists.find { |list| list.name == list_name }.id
   end
 
-  def card_exists?(board, list_name, card_name)
+  def card_exists?(board, list_names, card_name)
     out = false
-    self.find_cards(board,self.find_list(board, list_name)).each do |card|
-      if card.name.include? card_name
-        out = true
+    list_names.each do |list_name|
+      self.find_cards(board,self.find_list(board, list_name)).each do |card|
+        return true if card_name.nil?
+        if card.name.include? card_name
+          out = true
+        end
       end
     end
+
     out
   end
 
