@@ -33,7 +33,7 @@ module Totrello
       puts "Woot! We've got'em"
 
       puts 'Generating your board'
-      board_name = todos[:directory].nil? ? todos[:directory] : dir.split('/').last
+      board_name = todos[:directory].nil? ? todos[:directory] : @directory.split('/').last
       puts "Creating the board: #{board_name}"
       begin
         board = @trello.find_board(board_name)
