@@ -8,9 +8,7 @@ script: gem install bundler && bundle exec rspec test/totrello_spec.rb
 deploy:
   provider: rubygems
   api_key:
-    secure: A/8Ok3/ihNpklGN2s1Qn5SRA7RYTL0BZp3gP4mYRXD6DyhEQHpMv5TS0ThhqhIEvDCAeUlCRYPkhHhbjoSX11n9DNnQSvgtzBdgMjXxomgsC8AX1GYbf7NzEQF14sj7HFb7bey1osG8OdYG7W3WcO5W1qZqaNgnECth/+tDW/XU=
-  gem: !binary |-
-    G1tE
+    secure: jNaXTKddF7PjEM7tfr/S3RP0g6p0SWG/r0MPl6p6PMt2wcLCI2KmuJ8++nxTChvPRc8NxTYAXqiVsKr4mqI6KXLkf7PH++ILfywdOPoNNDTp8viCF2wdvC9EbXwOuyinD/uZkudEbESX0hrR9LYBl5DYH/Aa4MIKGO5levuzvb0=
+  gem: ToTrello
   on:
     tags: true
-    repo: whatisinternet/ToTrello

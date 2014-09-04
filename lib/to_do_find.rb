@@ -63,7 +63,7 @@ class ToDoFind
   private
   def is_todo?( string, test_string )
     begin
-      string.downcase.split(' ').index test_string.downcase
+      string.split(' ').index test_string
     rescue
       return nil
     end
