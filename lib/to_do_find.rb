@@ -48,7 +48,7 @@ class ToDoFind
       unless todo_location.nil?
         temp_string_array = code_line.split(' ')
         todo = code_line.split(' ')[(todo_location + 1)..((temp_string_array.length) - 1)].join(' ')
-        puts "Found! #{todo}"
+        #puts "Found! #{todo}"
         todo_and_location = {:todo => todo,
                              :location => line_num}
         @out.append(todo_and_location)
