@@ -9,6 +9,6 @@ deploy:
   provider: rubygems
   api_key:
     secure: SDZNSKpL4wwrxlBaN/NZpoT5U/8cdkAiCiqYDDSA9bXkW8/irm7JEEPZ18SWccHjV7cxQ+f1iglmdvN6k2tK6YrhVC1bF/Xp5n+CrYUv93nzZ8h/mxmWSeBflsBnWr8V4pokEvVIAqu37QpyFbErozOchke+OmbWy/sjLmWTglU=
-  gem: ToTrello
+  gem: totrello
   on:
     repo: whatisinternet/ToTrello
