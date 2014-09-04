@@ -1,10 +1,16 @@
 language: ruby
 rvm:
-  - 2.1.2
-  - 2.1.1
-  - 2.0.0-p247
-  - 1.9.3-p194
-# uncomment this line if your project needs to run something other than `rake`:
-script:
-    gem install bundler &&
-    bundle exec rspec test/totrello_spec.rb
+- 2.1.2
+- 2.1.1
+- 2.0.0-p247
+- 1.9.3-p194
+script: gem install bundler && bundle exec rspec test/totrello_spec.rb
+deploy:
+  provider: rubygems
+  api_key:
+    secure: A/8Ok3/ihNpklGN2s1Qn5SRA7RYTL0BZp3gP4mYRXD6DyhEQHpMv5TS0ThhqhIEvDCAeUlCRYPkhHhbjoSX11n9DNnQSvgtzBdgMjXxomgsC8AX1GYbf7NzEQF14sj7HFb7bey1osG8OdYG7W3WcO5W1qZqaNgnECth/+tDW/XU=
+  gem: !binary |-
+    G1tE
+  on:
+    tags: true
+    repo: whatisinternet/ToTrello

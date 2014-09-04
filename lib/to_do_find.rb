@@ -33,19 +33,21 @@ class ToDoFind
   private
   def find_todo(file)
     @out = []
-    histories = File.readlines(file)
+    code_lines = File.readlines(file)
+    return @out unless code_lines.grep('/TODO/' || '/todo/')
+
     line_num = 0
-    histories.each do |hist|
+    code_lines.each do |code_line|
       line_num += 1
-      todo_location = is_todo?( hist, 'TODO' )
-      todo_location ||= is_todo?( hist, 'TODO:' )
-      todo_location ||= is_todo?( hist, ' TODO:' )
-      todo_location ||= is_todo?( hist, ' TODO' )
-      todo_location ||= is_todo?( hist, '#TODO:' )
-      todo_location ||= is_todo?( hist, '#TODO' )
+      todo_location = is_todo?( code_line, 'TODO' )
+      todo_location ||= is_todo?( code_line, 'TODO:' )
+      todo_location ||= is_todo?( code_line, ' TODO:' )
+      todo_location ||= is_todo?( code_line, ' TODO' )
+      todo_location ||= is_todo?( code_line, '#TODO:' )
+      todo_location ||= is_todo?( code_line, '#TODO' )
       unless todo_location.nil?
-        temp_string_array = hist.split(' ')
-        todo = hist.split(' ')[(todo_location + 1)..((temp_string_array.length) - 1)].join(' ')
+        temp_string_array = code_line.split(' ')
+        todo = code_line.split(' ')[(todo_location + 1)..((temp_string_array.length) - 1)].join(' ')
         puts "Found! #{todo}"
         todo_and_location = {:todo => todo,
                              :location => line_num}
@@ -61,7 +63,7 @@ class ToDoFind
   private
   def is_todo?( string, test_string )
     begin
-      string.split(' ').index test_string
+      string.downcase.split(' ').index test_string.downcase
     rescue
       return nil
     end

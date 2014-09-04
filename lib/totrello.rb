@@ -41,7 +41,7 @@ module Totrello
 
 
 
-      puts 'Taking to Trello, this is the longest part...'
+      puts 'Talking to Trello, this is the longest part...'
       todos[:todo_list].each do |tdl|
         tdl[:todos].each do |td|
           begin
