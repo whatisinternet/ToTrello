@@ -32,12 +32,12 @@ module Totrello
     def find_todo_items
       puts 'Finding your todo items... This should take a minute...'
       todo = ToDoFind.new
-      todos = todo.search(@directory)
+      todos = todo.search(@directory, @config[:excludes])
       puts "Woot! We've got'em"
 
       puts 'Generating your board'
 
-      board_name = !@config[:board].nil? ? @config[:board] : @directory.split('/').last
+      board_name = !@config[:board_name].nil? ? @config[:board_name] : @directory.split('/').last
       puts "Creating the board: #{board_name}"
 
 
