@@ -15,7 +15,7 @@ module Totrello
       begin
         @trello = TrelloCreator.new
         @directory = directory
-        @config = TotrelloConfig.new.read_config
+        @config = TotrelloConfig.new.read_config(directory)
       rescue
         error_data =  "It looks like you're missing some details:\n\n\n"
         error_data += "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"
@@ -23,21 +23,17 @@ module Totrello
         error_data += "        \nhttps://trello.com/1/appKey/generate\n"
         error_data += "   \nYou can generate the TRELLO_MEMBER_TOKEN at:\n "
         error_data += "\nhttps://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n"
-        #raise CustomException.new(error: error_data)
+        puts error_data
       end
-
-      #find_todo_items
     end
 
     def find_todo_items
 
       puts 'Generating your board'
 
-      board_name = !@config[:board_name].nil? ? @config[:board_name] : @directory.split('/').last
+      puts "Creating the board: #{@config[:board_name].to_s}"
 
-      puts "Creating the board: #{board_name}"
-
-      board = create_or_gen_board(board_name)
+      board = create_or_gen_board(@config[:board_name].to_s)
 
       return -1 if board.nil?
 
@@ -55,20 +51,22 @@ module Totrello
     end
 
     def create_trello_card(board, list, todo, filename)
-      project_name  = !@config[:project_name].nil? ? @config[:project_name] : @directory.split('/').last
-      @trello.create_card(board, todo, gen_description(filename,todo, project_name),list)
+      @trello.create_card(board, todo, gen_description(filename,todo, @config[:project_name].to_s),list)
     end
 
     private
     def create_cards(board)
+
+
+      processes = []
+      todos = get_todos
+
       puts 'Talking to Trello, this is the longest part...'
 
-      list_name  = !@config[:list].nil? ? @config[:list] : 'To Do'
-      processes = []
-      get_todos[:todo_list].each do |tdl|
+      todos[:todo_list].each do |tdl|
         tdl[:todos].each do |td|
           unless td == ''
-            processes.append(fork {create_trello_card(board, list_name, td, tdl[:file])})
+            processes.append(fork {create_trello_card(board, @config[:list].to_s, td, tdl[:file])})
           end
         end
       end
@@ -83,9 +81,9 @@ module Totrello
 
     private
     def get_todos
-      puts 'Finding your todo items... This should take a minute...'
+      puts 'Finding your todo items... '
       todo = ToDoFind.new
-      todos = todo.search(@directory, @config[:excludes])
+      todos = todo.search(@directory,Array( @config[:excludes]))
       puts "Woot! We've got'em"
       todos
     end
