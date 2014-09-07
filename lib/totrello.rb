@@ -38,6 +38,7 @@ module Totrello
       puts 'Generating your board'
 
       board_name = !@config[:board_name].nil? ? @config[:board_name] : @directory.split('/').last
+      list_name  = !@config[:list].nil? ? @config[:list] : 'To Do'
       puts "Creating the board: #{board_name}"
 
 
@@ -50,10 +51,8 @@ module Totrello
       puts 'Talking to Trello, this is the longest part...'
       todos[:todo_list].each do |tdl|
         tdl[:todos].each do |td|
-          puts gen_description(tdl[:file], td)
-          #@trello.create_card(board,td, gen_description(tdl[:file],td),'To Do') unless td == ''
           unless td == ''
-            create_trello_card(board, 'To Do', td, tdl[:file])
+            create_trello_card(board, list_name, td, tdl[:file])
           end
         end
       end
@@ -66,12 +65,14 @@ module Totrello
     end
 
     def create_trello_card(board, list, todo, filename)
-      @trello.create_card(board, todo, gen_description(filename,todo),list)
+      project_name  = !@config[:project_name].nil? ? @config[:project_name] : @directory.split('/').last
+      @trello.create_card(board, todo, gen_description(filename,todo, project_name),list)
     end
 
 
-    def gen_description(file, todo)
+    def gen_description(file, todo, project_name)
       out =  "TODO item found by ToTrello\n"
+      out += "Project name #{project_name}"
       out += "Filename: #{file}\n"
       out += "Action item: #{todo[:todo]}\n"
       out += "Location (at or near) line: #{todo[:location]}\n"
