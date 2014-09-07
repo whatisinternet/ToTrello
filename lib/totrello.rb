@@ -30,17 +30,12 @@ module Totrello
     end
 
     def find_todo_items
-      puts 'Finding your todo items... This should take a minute...'
-      todo = ToDoFind.new
-      todos = todo.search(@directory, @config[:excludes])
-      puts "Woot! We've got'em"
 
       puts 'Generating your board'
 
       board_name = !@config[:board_name].nil? ? @config[:board_name] : @directory.split('/').last
-      list_name  = !@config[:list].nil? ? @config[:list] : 'To Do'
-      puts "Creating the board: #{board_name}"
 
+      puts "Creating the board: #{board_name}"
 
       board = create_or_gen_board(board_name)
 
@@ -48,15 +43,10 @@ module Totrello
 
       puts "Created or found a board with the ID: #{board.name}"
 
-      puts 'Talking to Trello, this is the longest part...'
-      todos[:todo_list].each do |tdl|
-        tdl[:todos].each do |td|
-          unless td == ''
-            create_trello_card(board, list_name, td, tdl[:file])
-          end
-        end
-      end
+
+      create_cards(board)
       puts "And you're ready to go!"
+
     end
 
     def create_or_gen_board(board_name)
@@ -69,7 +59,40 @@ module Totrello
       @trello.create_card(board, todo, gen_description(filename,todo, project_name),list)
     end
 
+    private
+    def create_cards(board)
+      puts 'Talking to Trello, this is the longest part...'
 
+      list_name  = !@config[:list].nil? ? @config[:list] : 'To Do'
+      processes = []
+      get_todos[:todo_list].each do |tdl|
+        tdl[:todos].each do |td|
+          unless td == ''
+            processes.append(fork {create_trello_card(board, list_name, td, tdl[:file])})
+          end
+        end
+      end
+
+      process_manager(processes)
+    end
+
+    private
+    def process_manager(processes)
+      processes.each {|pro| Process.waitpid(pro)}
+    end
+
+    private
+    def get_todos
+      puts 'Finding your todo items... This should take a minute...'
+      todo = ToDoFind.new
+      todos = todo.search(@directory, @config[:excludes])
+      puts "Woot! We've got'em"
+      todos
+    end
+
+
+
+    private
     def gen_description(file, todo, project_name)
       out =  "TODO item found by ToTrello\n"
       out += "Project name #{project_name}"
