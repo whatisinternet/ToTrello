@@ -1,4 +1,8 @@
 totrello:
+          project_name: 'ToTrello'
           board: 'ToTrello'
           list: 'To Do'
-          exclude: 'test'
+          exclude: [
+                    'pkg/',
+                    'bin/',
+                   ]
