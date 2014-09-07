@@ -1,0 +1,4 @@
+totrello:
+          board: 'ToTrello'
+          list: 'To Do'
+          exclude: 'test'

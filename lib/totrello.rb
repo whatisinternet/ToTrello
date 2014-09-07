@@ -1,6 +1,7 @@
 require "totrello/version"
 require 'trello_creator'
 require 'to_do_find'
+require 'totrello_config'
 
 
 module Totrello
@@ -8,11 +9,13 @@ module Totrello
   class Trelloize
     @trello
     @directory
+    @config
 
     def initialize(directory)
       begin
         @trello = TrelloCreator.new
         @directory = directory
+        @config = TotrelloConfig.new.read_config
       rescue
         error_data =  "It looks like you're missing some details:\n\n\n"
         error_data += "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"
@@ -34,7 +37,7 @@ module Totrello
 
       puts 'Generating your board'
 
-      board_name = todos[:directory].nil? ? todos[:directory] : @directory.split('/').last
+      board_name = !@config[:board].nil? ? @config[:board] : @directory.split('/').last
       puts "Creating the board: #{board_name}"
 
 
