@@ -8,8 +8,8 @@ TODO: Turns Todo items into Trello cards
 
 ## Notes
 
-This is very early in development and makes several assumptions.
- + As it stands you cannot specify the board you want todo items posted to. They are always posted to a board with the projects name
+If you do not specify a .totrello.yml file somewhere in your project ToTrello will assume:
+ + The board will be called by the directory name ToTrello was run in
  + Todo items are placed into the To Do list by default
 
 
@@ -29,7 +29,25 @@ Generate your TRELLO_MEMBER_TOKEN at: https://trello.com/1/authorize?key=[TRELLO
 
     $ export TRELLO_DEVELOPER_PUBLIC_KEY='[Your key here]'
     $ export TRELLO_MEMBER_TOKEN='[Your key here]'
-    
+
+### Creating a .totrello.yml file:
+
+#### Sample file:
+
+    totrello:
+              project_name: 'ToTrello'
+              board: 'ToTrello'
+              list: 'To Do'
+              exclude: [
+                        'pkg/',
+                        'bin/',
+                       ]
+
+The ToTrello yml file allows you to customize the way ToTrello functions:
++ Project_name : The name of the project (i.e. ToTrello)
++ board : The Trello board you want to post to
++ list : The list you want your new todo items to post to
++ exclude : The files or directories you want to exclude
 
 ### To Index the current working folder and create trello cards for it
 
