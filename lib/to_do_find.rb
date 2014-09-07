@@ -30,7 +30,7 @@ class ToDoFind
   end
 
   def find_todo(file)
-    todo_styles = ['TODO']
+    todo_styles = ['TODO', '#TODO', '#TODO:', 'TODO:']
     @out = []
     code_lines = File.readlines(file)
 
@@ -39,10 +39,10 @@ class ToDoFind
     code_lines= code_lines.map.with_index { |x,i| {:todo => x, :location => i + 1}}
 
     todo_styles.each do |tds|
-      @out = code_lines.find_all { |i| i[:todo].include?(tds)}
+      @out.concat((code_lines.find_all { |i| is_todo?(i[:todo], (tds))}))
     end
 
-    clean_todos(@out)
+    clean_todos(@out).sort_by { |hsh| hsh[:todo] }
   end
 
   private
@@ -60,9 +60,14 @@ class ToDoFind
   private
   def is_todo?( string, test_string )
     begin
-      string.split(' ').index test_string != 0 ? true : false
+      location = string.split(' ').index test_string
+      if location.nil?
+        return false
+      else
+        return true
+    end
     rescue
-      return nil
+      false
     end
 
   end
