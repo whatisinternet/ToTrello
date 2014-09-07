@@ -95,7 +95,7 @@ module Totrello
     private
     def gen_description(file, todo, project_name)
       out =  "TODO item found by ToTrello\n"
-      out += "Project name #{project_name}"
+      out += "Project name #{project_name}\n"
       out += "Filename: #{file}\n"
       out += "Action item: #{todo[:todo]}\n"
       out += "Location (at or near) line: #{todo[:location]}\n"
