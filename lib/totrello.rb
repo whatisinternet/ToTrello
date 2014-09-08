@@ -15,7 +15,8 @@ module Totrello
       begin
         @trello = TrelloCreator.new
         @directory = directory
-        @config = TotrelloConfig.new.read_config(directory)
+        totrello_config = TotrelloConfig.new(directory)
+        @config = totrello_config.build_hash
       rescue
         error_data =  "It looks like you're missing some details:\n\n\n"
         error_data += "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"

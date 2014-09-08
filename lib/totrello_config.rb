@@ -6,9 +6,24 @@ class TotrelloConfig
   @default_list
   @excludes
 
+  def initialize(directory)
+    read_config(directory)
+    defaults(directory)
+  end
+
+  def build_hash
+    {
+        :project_name => @project_name,
+        :board_name   => @board_name,
+        :default_list => @default_list,
+        :excludes     => @excludes
+    }
+  end
+
+  private
   def read_config(directory)
 
-    rbfiles = File.join("#{Dir.pwd}/**", ".totrello.yml")
+    rbfiles = File.join("#{directory}/**", ".totrello.yml")
     trello_yml = Dir.glob(rbfiles)[0]
 
     unless trello_yml.nil?
@@ -16,17 +31,9 @@ class TotrelloConfig
         config['totrello'].each { |key, value| instance_variable_set("@#{key}", value) }
     end
 
-
-    defaults(directory)
-    {
-     :project_name => @project_name,
-     :board_name   => @board_name,
-     :default_list => @default_list,
-     :excludes     => @excludes
-    }
-
   end
 
+  private
   def defaults(directory)
     @project_name ||=  directory.split('/').last
     @board_name   ||= directory.split('/').last
