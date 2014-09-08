@@ -1,39 +1,37 @@
 require 'yaml'
 
 class TotrelloConfig
+  @project_name
+  @board_name
+  @default_list
+  @excludes
 
   def read_config(directory)
 
-    begin
+    rbfiles = File.join("#{Dir.pwd}/**", ".totrello.yml")
+    trello_yml = Dir.glob(rbfiles)[0]
 
-      rbfiles = File.join("#{Dir.pwd}/**", ".totrello.yml")
-      config = YAML.load_file( Dir.glob(rbfiles)[0])
-
-      puts 'Found a .totrello.yml file!'
-
-      project_name = config['totrello']['project_name']
-      board_name   = config['totrello']['board']
-      default_list = config['totrello']['list']
-      excludes     = Array(config['totrello']['exclude'])
-
-    rescue
-
-      puts 'No .yml file found or your yml file is corrupt. Making assumptions.'
-
-      project_name =  directory.split('/').last
-      board_name   = directory.split('/').last
-      default_list = 'To Do'
-      excludes     = Array(nil)
-
+    unless trello_yml.nil?
+        config = YAML.load_file(trello_yml )
+        config['totrello'].each { |key, value| instance_variable_set("@#{key}", value) }
     end
 
+
+    defaults(directory)
     {
-     :project_name => project_name,
-     :board_name   => board_name,
-     :default_list => default_list,
-     :excludes     => excludes
+     :project_name => @project_name,
+     :board_name   => @board_name,
+     :default_list => @default_list,
+     :excludes     => @excludes
     }
 
+  end
+
+  def defaults(directory)
+    @project_name ||=  directory.split('/').last
+    @board_name   ||= directory.split('/').last
+    @default_list ||= 'To Do'
+    @excludes     ||= Array(nil)
   end
 
 end
