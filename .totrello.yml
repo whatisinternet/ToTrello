@@ -1,0 +1,8 @@
+totrello:
+          project_name: 'ToTrello'
+          board_name: 'ToTrello'
+          default_list: 'To Do'
+          excludes: [
+                    'pkg/',
+                    'bin/',
+                   ]

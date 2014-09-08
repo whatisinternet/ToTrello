@@ -1,6 +1,7 @@
 require "totrello/version"
 require 'trello_creator'
 require 'to_do_find'
+require 'totrello_config'
 
 
 module Totrello
@@ -8,11 +9,14 @@ module Totrello
   class Trelloize
     @trello
     @directory
+    @config
 
     def initialize(directory)
       begin
         @trello = TrelloCreator.new
         @directory = directory
+        totrello_config = TotrelloConfig.new(directory)
+        @config = totrello_config.build_hash
       rescue
         error_data =  "It looks like you're missing some details:\n\n\n"
         error_data += "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"
@@ -20,41 +24,26 @@ module Totrello
         error_data += "        \nhttps://trello.com/1/appKey/generate\n"
         error_data += "   \nYou can generate the TRELLO_MEMBER_TOKEN at:\n "
         error_data += "\nhttps://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n"
-        #raise CustomException.new(error: error_data)
+        puts error_data
       end
-
-      #find_todo_items
     end
 
     def find_todo_items
-      puts 'Finding your todo items... This should take a minute...'
-      todo = ToDoFind.new
-      todos = todo.search(@directory)
-      puts "Woot! We've got'em"
 
       puts 'Generating your board'
 
-      board_name = todos[:directory].nil? ? todos[:directory] : @directory.split('/').last
-      puts "Creating the board: #{board_name}"
+      puts "Creating the board: #{@config[:board_name].to_s}"
 
-
-      board = create_or_gen_board(board_name)
+      board = create_or_gen_board(@config[:board_name].to_s)
 
       return -1 if board.nil?
 
       puts "Created or found a board with the ID: #{board.name}"
 
-      puts 'Talking to Trello, this is the longest part...'
-      todos[:todo_list].each do |tdl|
-        tdl[:todos].each do |td|
-          puts gen_description(tdl[:file], td)
-          #@trello.create_card(board,td, gen_description(tdl[:file],td),'To Do') unless td == ''
-          unless td == ''
-            create_trello_card(board, 'To Do', td, tdl[:file])
-          end
-        end
-      end
+
+      create_cards(board)
       puts "And you're ready to go!"
+
     end
 
     def create_or_gen_board(board_name)
@@ -63,15 +52,53 @@ module Totrello
     end
 
     def create_trello_card(board, list, todo, filename)
-      @trello.create_card(board, todo, gen_description(filename,todo),list)
+      @trello.create_card(board, todo, gen_description(filename,todo, @config[:project_name].to_s),list)
+    end
+
+    private
+    def create_cards(board)
+
+
+      processes = []
+      todos = get_todos
+
+      puts 'Talking to Trello, this is the longest part...'
+
+      todos[:todo_list].each do |tdl|
+        tdl[:todos].each do |td|
+          unless td == ''
+            processes.append(fork {create_trello_card(board, @config[:list].to_s, td, tdl[:file])})
+          end
+        end
+      end
+
+      process_manager(processes)
+    end
+
+    private
+    def process_manager(processes)
+      processes.each {|pro| Process.waitpid(pro)}
+    end
+
+    private
+    def get_todos
+      puts 'Finding your todo items... '
+      todo = ToDoFind.new
+      todos = todo.search(@directory,Array( @config[:excludes]))
+      puts "Woot! We've got'em"
+      todos
     end
 
 
-    def gen_description(file, todo)
+
+    private
+    def gen_description(file, todo, project_name)
       out =  "TODO item found by ToTrello\n"
-      out += "Filename: #{file}\n"
-      out += "Action item: #{todo[:todo]}\n"
-      out += "Location (at or near) line: #{todo[:location]}\n"
+      out +=  "===========================\n"
+      out += "**Project name:** #{project_name}\n"
+      out += "**Filename**: #{file}\n"
+      out += "**Action item**: #{todo[:todo]}\n"
+      out += "**Location (at or near) line**: #{todo[:location]}\n"
     end
 
 

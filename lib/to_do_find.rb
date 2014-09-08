@@ -4,29 +4,43 @@ class ToDoFind
 
   # This will search a given directory
   #
-  def search(directory)
+  def search(directory, excludes_dirs)
+    files_to_search = []
 
-    dir = directory
-    dir ||= Dir.pwd
+    directory ||= Dir.pwd
 
-    todos= {directory: dir.split('/').last, :todo_list=>[] }
+    todos= {directory: directory.split('/').last, :todo_list=>[] }
 
-    rbfiles = File.join("#{dir}/**", "*.*rb")
+    files_to_search = exclude_folders(get_folders(directory), Array(excludes_dirs))
 
-    Dir.glob(rbfiles) do |my_text_file|
+
+    files_to_search.each do |my_text_file|
 
       found_todo = find_todo(my_text_file)
 
 
       if found_todo
         todos[:todo_list].append(
-                                {:file=> my_text_file.gsub(dir,''),
+                                {:file=> my_text_file.gsub(directory,''),
                                  :todos => found_todo}
         )
       end
 
     end
     todos
+  end
+
+  def get_folders(directory)
+    directory ||= Dir.pwd
+    rbfiles = File.join("#{directory}/**", "*.*rb")
+    Dir.glob(rbfiles)
+  end
+
+  def exclude_folders(file_array, excludes_array)
+    excludes_array.each do |excludes_dir|
+      file_array.reject! { |i|  i.include? excludes_dir }
+    end
+    file_array
   end
 
   def find_todo(file)
