@@ -32,22 +32,22 @@ Generate your TRELLO_MEMBER_TOKEN at: https://trello.com/1/authorize?key=[TRELLO
 
 ### Creating a .totrello.yml file:
 
+The ToTrello yml file allows you to customize the way ToTrello functions:
++ Project_name : The name of the project (i.e. ToTrello)
++ board_name : The Trello board you want to post to
++ default_list : The list you want your new todo items to post to
++ excludes : The files or directories you want to exclude
+
 #### Sample file:
 
     totrello:
               project_name: 'ToTrello'
-              board: 'ToTrello'
-              list: 'To Do'
-              exclude: [
+              board_name: 'ToTrello'
+              default_list: 'To Do'
+              excludes: [
                         'pkg/',
                         'bin/',
                        ]
-
-The ToTrello yml file allows you to customize the way ToTrello functions:
-+ Project_name : The name of the project (i.e. ToTrello)
-+ board : The Trello board you want to post to
-+ list : The list you want your new todo items to post to
-+ exclude : The files or directories you want to exclude
 
 ### To Index the current working folder and create trello cards for it
 
