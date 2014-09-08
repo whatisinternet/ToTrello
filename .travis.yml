@@ -4,7 +4,7 @@ rvm:
 - 2.1.1
 - 2.0.0-p247
 - 1.9.3-p194
-script: gem install bundler && bundle exec rspec test/totrello_spec.rb
+script: gem install bundler && bundle exec rspec test/*
 deploy:
   provider: rubygems
   api_key:
