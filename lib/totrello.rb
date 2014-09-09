@@ -59,7 +59,7 @@ module Totrello
     def create_cards(board)
 
 
-      processes = []
+      #processes = []
       todos = get_todos
 
       puts 'Talking to Trello, this is the longest part...'
@@ -67,12 +67,13 @@ module Totrello
       todos[:todo_list].each do |tdl|
         tdl[:todos].each do |td|
           unless td == ''
-            processes.append(fork {create_trello_card(board, @config[:default_list].to_s, td, tdl[:file])})
+            #processes.append(fork {create_trello_card(board, @config[:default_list].to_s, td, tdl[:file])})
+            create_trello_card(board, @config[:default_list].to_s, td, tdl[:file])
           end
         end
       end
 
-      process_manager(processes)
+      #process_manager(processes)
     end
 
     private
