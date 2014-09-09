@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency 'rspec', '~> 3.0.0'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4.0'
 
   spec.add_dependency 'ruby-trello', '~> 1.1.1'
 
