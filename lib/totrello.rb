@@ -52,14 +52,25 @@ module Totrello
     end
 
     def create_trello_card(board, list, todo, filename)
-      @trello.create_card(board, todo, gen_description(filename,todo, @config[:project_name].to_s),list)
+      description = gen_description(filename,todo, @config[:project_name].to_s)
+      card = @trello.create_card(board, todo[:todo], description ,list)
+    end
+
+    #TODO: Test if this works
+    def gen_description(file, todo, project_name)
+      out =  "TODO item found by ToTrello\n"
+      out +=  "===========================\n"
+      out += "**Project name:** #{project_name}\n"
+      out += "**Filename**: #{file}\n"
+      out += "**Action item**: #{todo[:todo]}\n"
+      out += "**Location (at or near) line**: #{todo[:location]}\n"
     end
 
     private
     def create_cards(board)
 
 
-      #processes = []
+      #rocesses = []
       todos = get_todos
 
       puts 'Talking to Trello, this is the longest part...'
@@ -67,13 +78,13 @@ module Totrello
       todos[:todo_list].each do |tdl|
         tdl[:todos].each do |td|
           unless td == ''
-            #processes.append(fork {create_trello_card(board, @config[:default_list].to_s, td, tdl[:file])})
-            create_trello_card(board, @config[:default_list].to_s, td, tdl[:file])
+            processes.append(fork {create_trello_card(board, @config[:default_list], td, tdl[:file])})
+
           end
         end
       end
 
-      #process_manager(processes)
+      process_manager(processes)
     end
 
     private
@@ -92,15 +103,6 @@ module Totrello
 
 
 
-    private
-    def gen_description(file, todo, project_name)
-      out =  "TODO item found by ToTrello\n"
-      out +=  "===========================\n"
-      out += "**Project name:** #{project_name}\n"
-      out += "**Filename**: #{file}\n"
-      out += "**Action item**: #{todo[:todo]}\n"
-      out += "**Location (at or near) line**: #{todo[:location]}\n"
-    end
 
 
   end

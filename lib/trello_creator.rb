@@ -9,10 +9,13 @@ class TrelloCreator
   end
 
   def create_card(board, name, description, list_name)
+    puts description
     list_names = ['To Do', 'Doing', 'Done']
-    unless card_exists?(board, list_names, name[:todo])
-      card = Trello::Card.create(name: name[:todo], list_id: self.find_list(board, list_name), description: description)
+    unless card_exists?(board, list_names, name)
+      card = Trello::Card.create(name: name, list_id: self.find_list(board, list_name), desc: description)
       card.save
+
+      #puts card.desc
     end
   end
 
