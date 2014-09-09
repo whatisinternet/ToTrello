@@ -70,7 +70,7 @@ module Totrello
     def create_cards(board)
 
 
-      #rocesses = []
+      processes = []
       todos = get_todos
 
       puts 'Talking to Trello, this is the longest part...'
