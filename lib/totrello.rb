@@ -58,7 +58,7 @@ module Totrello
 
     #TODO: Test if this works
     def gen_description(file, todo, project_name)
-      out =  "TODO item found by ToTrello\n"
+      out =  "TODO item found by the [ToTrello](https://rubygems.org/gems/totrello) gem\n"
       out +=  "===========================\n"
       out += "**Project name:** #{project_name}\n"
       out += "**Filename**: #{file}\n"
