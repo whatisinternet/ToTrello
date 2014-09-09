@@ -67,7 +67,7 @@ module Totrello
       todos[:todo_list].each do |tdl|
         tdl[:todos].each do |td|
           unless td == ''
-            processes.append(fork {create_trello_card(board, @config[:list].to_s, td, tdl[:file])})
+            processes.append(fork {create_trello_card(board, @config[:default_list].to_s, td, tdl[:file])})
           end
         end
       end
