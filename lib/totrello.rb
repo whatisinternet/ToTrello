@@ -12,20 +12,10 @@ module Totrello
     @config
 
     def initialize(directory)
-      begin
-        @trello = TrelloCreator.new
-        @directory = directory
-        totrello_config = TotrelloConfig.new(directory)
-        @config = totrello_config.build_hash
-      rescue
-        error_data =  "It looks like you're missing some details:\n\n\n"
-        error_data += "   You must define TRELLO_DEVELOPER_PUBLIC_KEY & TRELLO_MEMBER_TOKEN\n"
-        error_data += "   \nYou can generate the TRELLO_DEVELOPER_PUBLIC_KEY at:\n"
-        error_data += "        \nhttps://trello.com/1/appKey/generate\n"
-        error_data += "   \nYou can generate the TRELLO_MEMBER_TOKEN at:\n "
-        error_data += "\nhttps://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n"
-        puts error_data
-      end
+      @trello = TrelloCreator.new
+      @directory = directory
+      totrello_config = TotrelloConfig.new(directory)
+      @config = totrello_config.build_hash
     end
 
     def find_todo_items
@@ -56,7 +46,6 @@ module Totrello
       card = @trello.create_card(board, todo[:todo], description ,list)
     end
 
-    #TODO: Test if this works
     def gen_description(file, todo, project_name)
       out =  "TODO item found by the [ToTrello](https://rubygems.org/gems/totrello) gem\n"
       out +=  "===========================\n"

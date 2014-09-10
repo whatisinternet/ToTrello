@@ -14,30 +14,48 @@ describe 'Totrello' do
 
   end
 
+  describe 'find_todo_items' do
+
+    it "find todo items and create cards" do
+      directory = "#{Dir.pwd}/test/test_data"
+      b = Totrello::Trelloize.new(directory)
+      b.find_todo_items.should be_nil
+    end
+
+  end
+
   describe 'create_or_gen_board' do
+
     it "should return a board" do
       directory = "#{Dir.pwd}/test/test_data"
+
       t = Totrello::Trelloize.new(directory)
       board = t.create_or_gen_board(directory.split('/').last)
+
       expect(board.name.downcase).to  eq(directory.split('/').last.downcase)
+
     end
 
   end
 
   describe 'create_card' do
+
     it "should return a card" do
+
       directory = "#{Dir.pwd}/test/test_data"
+
       t = Totrello::Trelloize.new(directory)
       board = t.create_or_gen_board(directory.split('/').last)
+
       card_name = Digest::SHA1.hexdigest Time.now.to_s
+
       card = t.create_trello_card(board, 'To Do', {:todo => card_name, :location => card_name.reverse }, directory.split('/').last)
+
       expect(card).to include(card_name)
+
     end
 
   end
 
-
 end
-
-
 
