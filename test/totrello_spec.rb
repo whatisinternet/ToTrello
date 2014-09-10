@@ -14,16 +14,6 @@ describe 'Totrello' do
 
   end
 
-  describe 'find_todo_items' do
-
-    it "find todo items and create cards" do
-      directory = "#{Dir.pwd}/test/test_data"
-      b = Totrello::Trelloize.new(directory)
-      b.find_todo_items.should be_nil
-    end
-
-  end
-
   describe 'create_or_gen_board' do
 
     it "should return a board" do
