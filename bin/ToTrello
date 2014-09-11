@@ -7,6 +7,21 @@ TRELLO_MEMBER_TOKEN = ENV['TRELLO_MEMBER_TOKEN']
 def main
 
   if TRELLO_DEVELOPER_PUBLIC_KEY.nil? || TRELLO_MEMBER_TOKEN.nil?
+    puts "ERROR:\n"
+    puts "Your Trello developer PK is: #{TRELLO_DEVELOPER_PUBLIC_KEY}\n"
+    puts "Your Trello member token is: #{TRELLO_MEMBER_TOKEN}\n\n"
+    puts "It looks like you haven't set either a TRELLO_DEVELOPER_PUBLIC_KEY or TRELLO_MEMBER_TOKEN.\n\n"
+    puts "You can generate a TRELLO_DEVELOPER_PUBLIC_KEY at:\n"
+    puts "https://trello.com/1/appKey/generate\n"
+    puts "You can generate a TRELLO_MEMBER_TOKEN at:\n"
+    puts " https://trello.com/1/authorize?key=[TRELLO_DEVELOPER_PUBLIC_KEY]&name=ToTrelloGem&expiration=never&response_type=token&scope=read,write\n\n"
+    puts "Then run:\n"
+    puts "    $ export TRELLO_DEVELOPER_PUBLIC_KEY='[Your key here]'\n"
+    puts "    $ export TRELLO_MEMBER_TOKEN='[Your key here]'\n"
+
+    puts "\nAnd try ToTrello again.\n"
+
+
     exit(-1)
   else
 
