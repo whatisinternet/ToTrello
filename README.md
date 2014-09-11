@@ -30,13 +30,16 @@ Generate your TRELLO_MEMBER_TOKEN at: https://trello.com/1/authorize?key=[TRELLO
     $ export TRELLO_DEVELOPER_PUBLIC_KEY='[Your key here]'
     $ export TRELLO_MEMBER_TOKEN='[Your key here]'
 
-### Creating a .totrello.yml file:
+### Creating a .totrello.yml file (Must be in root directory):
 
 The ToTrello yml file allows you to customize the way ToTrello functions:
 + Project_name : The name of the project (i.e. ToTrello)
-+ board_name : The Trello board you want to post to
++ board_name   : The Trello board you want to post to
 + default_list : The list you want your new todo items to post to
-+ excludes : The files or directories you want to exclude
++ todo_types   : The types of todo items you want to capture
++ comment_style: How comments appear in your file types
++ file_types   : Types of files you want to include in the search
++ excludes     : The files or directories you want to exclude
 
 #### Sample file:
 
@@ -44,6 +47,9 @@ The ToTrello yml file allows you to customize the way ToTrello functions:
               project_name: 'ToTrello'
               board_name: 'ToTrello'
               default_list: 'To Do'
+              todo_types: ['TODO', '#TODO', '#TODO:', 'TODO:', 'FIXME', '#FIXME', '#FIXME:', 'FIXME:']
+              comment_style: ['#','//']
+              file_types: ['.rb','.yml']
               excludes: [
                         'pkg/',
                         'bin/',

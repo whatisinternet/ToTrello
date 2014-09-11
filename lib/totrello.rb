@@ -56,45 +56,43 @@ module Totrello
     end
 
     private
-    def create_cards(board)
+      def create_cards(board)
 
 
-      processes = []
-      todos = get_todos
+        processes = []
+        todos = get_todos
 
-      puts 'Talking to Trello, this is the longest part...'
+        puts 'Talking to Trello, this is the longest part...'
 
-      todos[:todo_list].each do |tdl|
-        tdl[:todos].each do |td|
-          unless td == ''
-            processes.append(fork {create_trello_card(board, @config[:default_list], td, tdl[:file])})
+        todos[:todo_list].each do |tdl|
+          tdl[:todos].each do |td|
+            unless td == ''
+              processes.append(fork {create_trello_card(board, @config[:default_list], td, tdl[:file])})
 
+            end
           end
         end
+
+        process_manager(processes)
       end
 
-      process_manager(processes)
+      def process_manager(processes)
+        processes.each {|pro| Process.waitpid(pro)}
+      end
+
+      def get_todos
+        puts 'Finding your todo items... '
+        todo = ToDoFind.new
+        todos = todo.search(@directory,
+                            Array( @config[:excludes]),
+                            Array( @config[:todo_types]),
+                            Array( @config[:file_types]),
+                            Array( @config[:comment_styles]))
+        puts "Woot! We've got'em"
+        todos
+      end
+
+
     end
-
-    private
-    def process_manager(processes)
-      processes.each {|pro| Process.waitpid(pro)}
-    end
-
-    private
-    def get_todos
-      puts 'Finding your todo items... '
-      todo = ToDoFind.new
-      todos = todo.search(@directory,Array( @config[:excludes]))
-      puts "Woot! We've got'em"
-      todos
-    end
-
-
-
-
-
-  end
-
 
 end
