@@ -88,7 +88,7 @@ module Totrello
                             Array( @config[:excludes]),
                             Array( @config[:todo_types]),
                             Array( @config[:file_types]),
-                            Array( @config[:comment_styles]))
+                            Array( @config[:comment_style]))
         puts "Woot! We've got'em"
         todos
       end
