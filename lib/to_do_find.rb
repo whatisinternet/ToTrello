@@ -70,6 +70,7 @@ class ToDoFind
         comment_styles.each do |cms|
           found_todos[:todo].gsub!(cms,'')
         end
+        found_todos[:todo].gsub!('#','')
         found_todos[:todo].gsub!(':','')
         found_todos[:todo].chomp!
         found_todos[:todo].lstrip!
