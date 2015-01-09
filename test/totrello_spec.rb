@@ -20,7 +20,7 @@ describe 'Totrello' do
       directory = "#{Dir.pwd}/test/test_data"
 
       t = Totrello::Trelloize.new(directory)
-      board = t.create_or_gen_board(directory.split('/').last)
+      board = t.create_or_gen_board
 
       expect(board.name.downcase).to  eq(directory.split('/').last.downcase)
 
@@ -35,7 +35,7 @@ describe 'Totrello' do
       directory = "#{Dir.pwd}/test/test_data"
 
       t = Totrello::Trelloize.new(directory)
-      board = t.create_or_gen_board(directory.split('/').last)
+      board = t.create_or_gen_board
 
       card_name = Digest::SHA1.hexdigest Time.now.to_s
 
@@ -45,6 +45,22 @@ describe 'Totrello' do
 
     end
 
+  end
+
+  describe 'create_cards' do
+    it 'loop over the cards and create them' do
+      # Missing test
+    end
+  end
+
+  describe 'get_todos' do
+    it 'should return an hash map of todos' do
+      directory = "#{Dir.pwd}/test/test_data"
+      t = Totrello::Trelloize.new(directory)
+      todos = t.get_todos
+      expect(todos).to include(:todo_list)
+      expect(todos).to be_a_kind_of(Hash)
+    end
   end
 
 end

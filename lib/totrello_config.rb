@@ -33,7 +33,6 @@ class TotrelloConfig
       trello_yml = Dir.glob(totrello_config_file)[0]
 
       unless trello_yml.nil?
-          puts "Found yml file file: #{trello_yml}"
           config = YAML.load_file(trello_yml )
           config['totrello'].each { |key, value| instance_variable_set("@#{key}", value) }
       end

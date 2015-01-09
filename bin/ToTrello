@@ -32,11 +32,20 @@ def main
 
 
     puts "You've specified to work in: #{dir}"
-
     trel = Totrello::Trelloize.new(dir)
-    trel.find_todo_items
+    puts 'Generating your board'
+    board = trel.create_or_gen_board
+    return -1 if board.nil?
+    puts "Created or found a board with the ID: #{board.name}"
+    puts 'Finding your todo items... '
+    todos = trel.get_todos
+    puts "Woot! We've got'em"
+    trel.create_cards(board, todos)
+    puts "And you're ready to go!"
+
 
   end
+
 end
 
 
