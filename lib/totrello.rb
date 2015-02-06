@@ -25,7 +25,7 @@ module Totrello
 
     def create_trello_card(board, list, todo, filename)
       description = gen_description(filename,todo, @config[:project_name].to_s)
-      card = @trello.create_card(board, todo[:todo], description ,list)
+      @trello.create_card(board, todo[:todo], description ,list)
     end
 
     def gen_description(file, todo, project_name)

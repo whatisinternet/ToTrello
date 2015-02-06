@@ -25,14 +25,10 @@ class ToDoFind
     todos
   end
 
-  def get_todos(files_to_search, found_todo)
-
-
-  end
 
   def get_folders(directory, file_types)    
     directory ||= Dir.pwd
-    files = get_internal_folders(directory, file_types)
+    get_internal_folders(directory, file_types)
   end
 
   def exclude_folders(file_array, excludes_array)
