@@ -2,6 +2,8 @@
 [![Gem Version](https://badge.fury.io/rb/totrello.svg)](http://badge.fury.io/rb/totrello)
 [![Code Climate](https://codeclimate.com/github/whatisinternet/ToTrello/badges/gpa.svg)](https://codeclimate.com/github/whatisinternet/ToTrello)
 [![Test Coverage](https://codeclimate.com/github/whatisinternet/ToTrello/badges/coverage.svg)](https://codeclimate.com/github/whatisinternet/ToTrello)
+[![totrello API
+Documentation](https://www.omniref.com/ruby/gems/totrello.png)](https://www.omniref.com/ruby/gems/totrello)
 # Totrello
 
 TODO: Turns Todo items into Trello cards
