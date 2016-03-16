@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'config'
+require 'totrello/config'
 
-describe 'Config' do
+describe Config do
 
   before(:all) do
     @attrs = %w(project_name board_name default_list excludes todo_types file_types comment_style)
