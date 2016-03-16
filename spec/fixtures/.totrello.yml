@@ -1,0 +1,11 @@
+totrello:
+          project_name: 'ToTrello'
+          board_name: 'ToTrello'
+          default_list: 'To Do'
+          todo_types: ['TODO', '#TODO', '#TODO:', 'TODO:', 'FIXME', '#FIXME', '#FIXME:', 'FIXME:']
+          comment_style: ['#','//']
+          file_types: ['.rb','.yml']
+          excludes: [
+                    'pkg/',
+                    'bin/',
+                   ]
