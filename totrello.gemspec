@@ -21,6 +21,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency 'rspec', '~> 3'
+  spec.add_development_dependency "rspec-expectations", "~> 3"
+  spec.add_development_dependency "rspec-nc", "~> 0.2"
+  spec.add_development_dependency "guard", "~> 2.12"
+  spec.add_development_dependency "guard-rspec", "~> 4.5"
+  spec.add_development_dependency "pry", "~> 0.10"
+  spec.add_development_dependency "pry-remote", "~> 0.1"
+  spec.add_development_dependency "pry-nav", "~> 0.2"
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
 
   spec.add_dependency 'ruby-trello', '~> 1.1'

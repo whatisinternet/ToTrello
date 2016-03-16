@@ -32,7 +32,6 @@
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 guard :rspec, cmd: 'rspec' do
-  watch(%r{^test/.+_spec\.rb$})
-  watch(%r{^lib/(.+)\.rb$})     { |m| "test/#{m[1]}_spec.rb" }
-  watch('test/spec_helper.rb')  { "spec" }
+  watch(%r{^spec/.+_spec\.rb$})
+  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/#{m[1]}_spec.rb" }
 end
