@@ -9,33 +9,6 @@ describe Todos do
     @config = Config.new
   end
 
-  describe 'load_directories' do
-
-    before(:each) do
-      @todos = Todos.new
-    end
-
-    it 'responds to load_directories' do
-      expect(@todos).to respond_to(:load_directories)
-    end
-
-    it 'responds to load_directories with a directory path' do
-      expect(@todos).to respond_to(:load_directories).with(2).arguments
-    end
-
-    it 'returns an array of directory strings' do
-      expect(@todos.load_directories(@test_dir, @config)).to be_a(Array)
-    end
-
-    it 'each item must be a string' do
-      directories = @todos.load_directories(@test_dir, @config)
-      directories.each do |directory|
-        expect(directory).to be_a(String)
-      end
-    end
-
-  end
-
   describe 'load_files' do
 
     before(:each) do
@@ -73,16 +46,16 @@ describe Todos do
       expect(@todos).to respond_to(:lines_with_index_for_file)
     end
 
-    it 'responds to lines_with_index_for_file for two arguments' do
-      expect(@todos).to respond_to(:lines_with_index_for_file).with(2).arguments
+    it 'responds to lines_with_index_for_file for one argument' do
+      expect(@todos).to respond_to(:lines_with_index_for_file).with(1).arguments
     end
 
     it 'returns an array' do
-      expect(@todos.lines_with_index_for_file(@test_dir, @test_file)).to be_a(Array)
+      expect(@todos.lines_with_index_for_file("#{@test_dir}/#{@test_file}")).to be_a(Array)
     end
 
     it 'returns an array of todo objects' do
-      files= @todos.lines_with_index_for_file(@test_dir, @test_file)
+      files= @todos.lines_with_index_for_file("#{@test_dir}/#{@test_file}")
       files.each do |f|
         expect(f).to be_a(Object)
       end
@@ -129,18 +102,69 @@ describe Todos do
     end
 
     it 'responds to todos_for_file for three arguments' do
-      expect(@todos).to respond_to(:todos_for_file).with(3).arguments
+      expect(@todos).to respond_to(:todos_for_file).with(2).arguments
     end
 
     it 'returns an array' do
-      expect(@todos.todos_for_file(@test_dir, @test_file, @config)).to be_a(Array)
+      expect(@todos.todos_for_file("#{@test_dir}/#{@test_file}", @config)).to be_a(Array)
     end
 
     it 'returns an array of todo objects' do
-      files= @todos.todos_for_file(@test_dir, @test_file, @config)
+      files= @todos.todos_for_file("#{@test_dir}/#{@test_file}", @config)
       files.each do |f|
         expect(f).to be_a(Object)
       end
+    end
+
+  end
+
+  describe 'all_todos' do
+
+    before(:each) do
+      @todos = Todos.new
+    end
+
+    it 'responds to all_todos' do
+      expect(@todos).to respond_to(:all_todos)
+    end
+
+    it 'responds to todos_for_file for two arguments' do
+      expect(@todos).to respond_to(:all_todos).with(2).arguments
+    end
+
+    it 'returns an array' do
+      expect(@todos.all_todos(@test_dir, @config)).to be_a(Array)
+    end
+
+    it 'returns an array of todo objects' do
+      files= @todos.all_todos(@test_dir, @config)
+      files.each do |f|
+        expect(f).to be_a(Object)
+      end
+    end
+
+  end
+
+  describe 'clean_todo' do
+
+    before(:each) do
+      @todos = Todos.new
+    end
+
+    it 'responds to clean_todo' do
+      expect(@todos).to respond_to(:clean_todo)
+    end
+
+    it 'responds to clean_todo for two arguments' do
+      expect(@todos).to respond_to(:clean_todo).with(2).arguments
+    end
+
+    it 'returns a string' do
+      expect(@todos.clean_todo("#TODO: FOO BAR", @config)).to be_a(String)
+    end
+
+    it 'returns a string without #TODO' do
+      expect(@todos.clean_todo("#TODO: Something awesome", @config)).to be_a(String)
     end
 
   end

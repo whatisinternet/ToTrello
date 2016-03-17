@@ -9,8 +9,12 @@ describe TrelloBuilder do
     @test_dir = "#{Dir.pwd}/spec/fixtures"
     @test_file = "fixture.rb"
     @config = Config.new
-    TRELLO_DEVELOPER_PUBLIC_KEY = ENV['TRELLO_DEVELOPER_PUBLIC_KEY']
-    TRELLO_MEMBER_TOKEN = ENV['TRELLO_MEMBER_TOKEN']
+  end
+
+  after(:all) do
+    board = @trello.find_board(@config)
+    board.update_fields({closed: true})
+    board.save
   end
 
   describe 'find_board' do
@@ -27,11 +31,6 @@ describe TrelloBuilder do
       expect(@trello).to respond_to(:find_board).with(1).argument
     end
 
-    it 'responds with nil on failure' do
-      @config.board_name = 'unacceptalble'
-      expect(@trello.find_board(@config)).to be_nil
-    end
-
     it 'responds with a board if the board exists' do
       expect(@trello.find_board(@config)).not_to be_nil
     end
@@ -41,6 +40,12 @@ describe TrelloBuilder do
   describe 'create_board' do
     before(:each) do
       @trello = TrelloBuilder.new
+    end
+
+    after(:each) do
+      board = @trello.find_board(@config)
+      board.update_fields({closed: true})
+      board.save
     end
 
     it 'responds to create_board' do
