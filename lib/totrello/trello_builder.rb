@@ -1,5 +1,4 @@
 require 'trello'
-require 'pry'
 
 class TrelloBuilder
 
