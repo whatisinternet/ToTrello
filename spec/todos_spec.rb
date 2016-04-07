@@ -82,11 +82,14 @@ describe Todos do
     end
 
     it 'returns true if a valid todo is passed' do
-      expect([true, false]).to include @todos.todo?("#TODO: Something", @config)
+      expect(@todos.todo?("#TODO: Something", @config)).to be true
     end
 
     it 'returns false if an invalid todo is passed' do
-      expect([true, false]).to include @todos.todo?("#NODO: Something", @config)
+      expect(@todos.todo?("#NODO: Something", @config)).to be(false)
+      expect(@todos.todo?("todo: Something", @config)).to be(false)
+      expect(@todos.todo?("todo = @something", @config)).to be(false)
+      expect(@todos.todo?("found_todos[todo].gsub!('', '')", @config)).to be(false)
     end
 
   end

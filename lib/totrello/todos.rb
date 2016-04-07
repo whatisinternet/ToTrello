@@ -44,6 +44,7 @@ class Todos
     todo_types = config.todo_types
     todo_types.any? do |todo_type|
       return false if line.index(todo_type).nil?
+      return false unless config.comment_style.any? { |cs| line.strip.start_with?(cs)}
       true
     end
   end
