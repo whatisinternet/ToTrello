@@ -14,7 +14,7 @@ describe TrelloBuilder do
   after(:all) do
     @trello = TrelloBuilder.new
     board = @trello.find_board(@config)
-    board.update_fields({closed: true})
+    board.closed = true
     board.save
   end
 
