@@ -29,6 +29,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-remote", "~> 0.1"
   spec.add_development_dependency "pry-nav", "~> 0.2"
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
+  spec.add_development_dependency 'dotenv', '~> 2.1.1'
+  spec.add_development_dependency 'webmock', '~> 1.24'
+  spec.add_development_dependency 'vcr', '~> 3.0'
 
   spec.add_dependency 'ruby-trello', '~> 1.1'
 

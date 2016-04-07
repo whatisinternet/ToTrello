@@ -12,6 +12,7 @@ describe TrelloBuilder do
   end
 
   after(:all) do
+    @trello = TrelloBuilder.new
     board = @trello.find_board(@config)
     board.update_fields({closed: true})
     board.save
@@ -32,7 +33,9 @@ describe TrelloBuilder do
     end
 
     it 'responds with a board if the board exists' do
-      expect(@trello.find_board(@config)).not_to be_nil
+      VCR.use_cassette 'find_board' do
+        expect(@trello.find_board(@config)).not_to be_nil
+      end
     end
 
   end
@@ -57,7 +60,9 @@ describe TrelloBuilder do
     end
 
     it 'creates a board' do
-      expect(@trello.create_board(@config)).to be_a(Trello::Board)
+      VCR.use_cassette 'create_board' do
+        expect(@trello.create_board(@config)).to be_a(Trello::Board)
+      end
     end
 
   end
@@ -76,7 +81,9 @@ describe TrelloBuilder do
     end
 
     it 'finds or creates a board' do
-      expect(@trello.find_or_create_board(@config)).to be_a(Trello::Board)
+      VCR.use_cassette 'finds_or_creates_a_board' do
+        expect(@trello.find_or_create_board(@config)).to be_a(Trello::Board)
+      end
     end
 
   end
@@ -97,7 +104,9 @@ describe TrelloBuilder do
     end
 
     it 'returns the id of the list' do
-      expect(@trello.find_list(@board, @list_name)).to be_a(String)
+      VCR.use_cassette 'gets list id' do
+        expect(@trello.find_list(@board, @list_name)).to be_a(String)
+      end
     end
 
   end
@@ -119,7 +128,9 @@ describe TrelloBuilder do
     end
 
     it 'returns a collection of cards' do
-      expect(@trello.cards(@board, @list_id)).to be_a(Array)
+      VCR.use_cassette 'list of cards' do
+        expect(@trello.cards(@board, @list_id)).to be_a(Array)
+      end
     end
 
   end
@@ -141,7 +152,9 @@ describe TrelloBuilder do
     end
 
     it 'returns false if the card doesn\'t exist' do
-      expect(@trello.card_exists?(@board, ['To Do'], 'test')).to be_falsey
+      VCR.use_cassette 'doesn\'t find a card' do
+        expect(@trello.card_exists?(@board, ['To Do'], srand.to_s)).to be_falsey
+      end
     end
 
   end
@@ -164,9 +177,11 @@ describe TrelloBuilder do
     end
 
     it 'returns a string of json if the card is created' do
-      expect(@trello.create_card(
-        @board, @card_name, 'bar', @list_name
-      )).to be_a(String)
+      VCR.use_cassette 'card created' do
+        expect(@trello.create_card(
+          @board, @card_name, 'bar', @list_name
+        )).to be_a(String)
+      end
     end
 
   end

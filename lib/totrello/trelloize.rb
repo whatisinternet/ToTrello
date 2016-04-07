@@ -29,6 +29,7 @@ class Trelloize
       description = description(todo, @config)
       @trello.create_card(board, todo[:todo], description, @config.default_list)
     end
+    nil
   end
 
 end

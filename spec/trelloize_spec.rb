@@ -42,10 +42,6 @@ describe Trelloize do
     it 'responds to find_and_create_cards_from_todos' do
       expect(@trelloize).to respond_to(:find_and_create_cards_from_todos)
     end
-
-    it 'responds to find_and_create_cards_from_todos' do
-      expect(@trelloize.find_and_create_cards_from_todos).to be_nil?
-    end
   end
 
 end
