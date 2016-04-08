@@ -85,13 +85,25 @@ describe Todos do
       expect(@todos.todo?("#TODO: Something", @config)).to be true
     end
 
-    it 'returns false if an invalid todo is passed' do
+    it 'returns false if a comment that\'s not a todo todo is passed' do
       expect(@todos.todo?("#NODO: Something", @config)).to be(false)
-      expect(@todos.todo?("todo: Something", @config)).to be(false)
-      expect(@todos.todo?("todo = @something", @config)).to be(false)
-      expect(@todos.todo?("found_todos[todo].gsub!('', '')", @config)).to be(false)
     end
 
+    it 'returns false if a a line doesn\'t start with a comment' do
+      expect(@todos.todo?("TODO: Something", @config)).to be(false)
+    end
+
+    it 'returns false if a a line is actually code for a hash todo' do
+      expect(@todos.todo?("todo: Something", @config)).to be(false)
+    end
+
+    it 'returns false if a a line is actually code for an assignment of variable todo' do
+      expect(@todos.todo?("todo = @something", @config)).to be(false)
+    end
+
+    it 'returns false if a a line is actually code with the word todo in it' do
+      expect(@todos.todo?("found_todos[todo].gsub!('', '')", @config)).to be(false)
+    end
   end
 
   describe 'todos_for_file' do
