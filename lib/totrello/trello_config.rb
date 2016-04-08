@@ -1,6 +1,6 @@
 require 'yaml'
 
-class Config
+class TrelloConfig
   attr_accessor :project_name, :board_name, :default_list,
     :excludes, :todo_types, :file_types, :comment_style
 

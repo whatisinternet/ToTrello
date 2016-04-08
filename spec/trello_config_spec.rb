@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'totrello/config'
+require 'totrello/trello_config'
 
-describe Config do
+describe TrelloConfig do
 
   before(:all) do
     @attrs = %w(project_name board_name default_list excludes todo_types file_types comment_style)
@@ -10,7 +10,7 @@ describe Config do
   describe 'instance vars' do
 
     before(:each) do
-      @config = Config.new
+      @config = TrelloConfig.new
     end
 
     it 'defines attrs' do
@@ -25,15 +25,15 @@ describe Config do
   describe 'initialize' do
 
     it 'responds to new' do
-      expect(Config).to respond_to(:new)
+      expect(TrelloConfig).to respond_to(:new)
     end
 
     it 'responds to new with an argument' do
-      expect(Config).to respond_to(:new).with(1).argument
+      expect(TrelloConfig).to respond_to(:new).with(1).argument
     end
 
     it 'builds a hash of settings' do
-      asserted_config = Config.new("#{Dir.pwd}/spec/fixtures")
+      asserted_config = TrelloConfig.new("#{Dir.pwd}/spec/fixtures")
       expected_config = {
         project_name: 'ToTrello',
         board_name: 'ToTrello',
@@ -54,7 +54,7 @@ describe Config do
 
   describe 'load_defaults' do
     before(:each) do
-      @config = Config.new
+      @config = TrelloConfig.new
     end
 
     it 'has a default config' do
@@ -82,7 +82,7 @@ describe Config do
   describe 'load_config' do
 
     before(:each) do
-      @config = Config.new
+      @config = TrelloConfig.new
     end
 
     it 'has a config loader' do

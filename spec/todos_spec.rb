@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'totrello/todos'
-require 'totrello/config'
+require 'totrello/trello_config'
 
 describe Todos do
   before(:all) do
     @test_dir = "#{Dir.pwd}/spec/fixtures"
     @test_file = "fixture.rb"
-    @config = Config.new
+    @config = TrelloConfig.new
   end
 
   describe 'load_files' do

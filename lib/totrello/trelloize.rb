@@ -1,6 +1,6 @@
 require 'totrello/trello_builder'
 require 'totrello/trelloize'
-require 'totrello/config'
+require 'totrello/trello_config'
 require 'totrello/todos'
 
 class Trelloize
@@ -9,7 +9,7 @@ class Trelloize
   def initialize(directory = "#{Dir.pwd}")
     @trello = TrelloBuilder.new
     @directory = directory
-    @config = Config.new(directory)
+    @config = TrelloConfig.new(directory)
   end
 
   def description(todo, config)
@@ -21,15 +21,11 @@ class Trelloize
     out += "**Location (at or near) line**: #{todo[:line_number]}\n"
   end
 
-  def find_and_create_cards_from_todos
-    todo_finder = Todos.new
-    todos = todo_finder.all_todos(@directory, @config)
-    board = @trello.find_or_create_board(@config)
+  def find_and_create_cards_from_todos(todos, board)
     todos.each do |todo|
       description = description(todo, @config)
       @trello.create_card(board, todo[:todo], description, @config.default_list)
     end
-    nil
   end
 
 end

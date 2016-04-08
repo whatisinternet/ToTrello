@@ -1,4 +1,3 @@
-require 'pry'
 class Todos
 
   def all_todos(root_directory = "#{Dir.pwd}", config)

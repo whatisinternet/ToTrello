@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'totrello/trello_builder'
-require 'totrello/config'
+require 'totrello/trello_config'
 require 'digest/sha1'
 
 describe TrelloBuilder do
@@ -8,7 +8,7 @@ describe TrelloBuilder do
   before(:all) do
     @test_dir = "#{Dir.pwd}/spec/fixtures"
     @test_file = "fixture.rb"
-    @config = Config.new
+    @config = TrelloConfig.new
   end
 
   after(:all) do
