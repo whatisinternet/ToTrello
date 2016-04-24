@@ -4,15 +4,13 @@ require 'totrello/trello_config'
 require 'digest/sha1'
 
 describe TrelloBuilder do
-
   before(:all) do
     @test_dir = "#{Dir.pwd}/spec/fixtures"
-    @test_file = "fixture.rb"
+    @test_file = 'fixture.rb'
     @config = TrelloConfig.new
   end
 
   describe 'find_board' do
-
     before(:each) do
       @trello = TrelloBuilder.new
     end
@@ -30,7 +28,6 @@ describe TrelloBuilder do
         expect(@trello.find_board(@config)).not_to be_nil
       end
     end
-
   end
 
   describe 'create_board' do
@@ -51,7 +48,6 @@ describe TrelloBuilder do
         expect(@trello.create_board(@config)).to be_a(Trello::Board)
       end
     end
-
   end
 
   describe 'find_or_create_board' do
@@ -72,7 +68,6 @@ describe TrelloBuilder do
         expect(@trello.find_or_create_board(@config)).to be_a(Trello::Board)
       end
     end
-
   end
 
   describe 'find_list' do
@@ -95,7 +90,6 @@ describe TrelloBuilder do
         expect(@trello.find_list(@board, @list_name)).to be_a(String)
       end
     end
-
   end
 
   describe 'cards' do
@@ -119,7 +113,6 @@ describe TrelloBuilder do
         expect(@trello.cards(@board, @list_id)).to be_a(Array)
       end
     end
-
   end
 
   describe 'card_exists?' do
@@ -143,7 +136,6 @@ describe TrelloBuilder do
         expect(@trello.card_exists?(@board, ['To Do'], srand.to_s)).to be_falsey
       end
     end
-
   end
 
   describe 'create_card' do
@@ -166,11 +158,9 @@ describe TrelloBuilder do
     it 'returns a string of json if the card is created' do
       VCR.use_cassette 'card created' do
         expect(@trello.create_card(
-          @board, @card_name, 'bar', @list_name
+                 @board, @card_name, 'bar', @list_name
         )).to be_a(String)
       end
     end
-
   end
-
 end

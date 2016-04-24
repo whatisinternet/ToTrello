@@ -1,21 +1,22 @@
 require 'yaml'
 
+# TrelloConfig
 class TrelloConfig
   attr_accessor :project_name, :board_name, :default_list,
-    :excludes, :todo_types, :file_types, :comment_style
+                :excludes, :todo_types, :file_types, :comment_style
 
-  def initialize(directory = "#{Dir.pwd}")
+  def initialize(directory = Dir.pwd.to_s)
     load_config("#{directory}/.totrello.yml")
     default_config(directory)
   end
 
-  def default_config(directory = "#{Dir.pwd}")
-    @project_name  ||=  directory.split('/').last
+  def default_config(directory = Dir.pwd.to_s)
+    @project_name  ||= directory.split('/').last
     @board_name    ||= directory.split('/').last
     @default_list  ||= 'To Do'
     @excludes      ||= Array(nil)
     @todo_types    ||= Array(['TODO', '#TODO', '#TODO:', 'TODO:'])
-    @file_types    ||= Array(['.rb','.erb'])
+    @file_types    ||= Array(['.rb', '.erb'])
     @comment_style ||= Array(['#'])
   end
 
@@ -27,5 +28,4 @@ class TrelloConfig
       instance_variable_set("@#{key}", value)
     end
   end
-
 end

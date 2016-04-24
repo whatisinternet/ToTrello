@@ -1,7 +1,7 @@
 require 'trello'
 
+# TrelloBuilder
 class TrelloBuilder
-
   def initialize
     Trello.configure do |config|
       config.developer_public_key = TRELLO_DEVELOPER_PUBLIC_KEY
@@ -14,7 +14,7 @@ class TrelloBuilder
   end
 
   def create_board(config)
-    Trello::Board.create(name: config.board_name, description: "A Trello board")
+    Trello::Board.create(name: config.board_name, description: 'A Trello board')
   end
 
   def create_card(board, card_name, description, list_name)
@@ -40,7 +40,7 @@ class TrelloBuilder
   def find_board(config)
     board_name = config.board_name
     trello_board = Trello::Board.all.find do |board|
-      board.name.upcase == board_name.upcase && !board.closed
+      board.name.casecmp(board_name.upcase) && !board.closed
     end
     return nil if trello_board.nil?
     Trello::Board.find(trello_board.id)
@@ -56,6 +56,4 @@ class TrelloBuilder
     board = create_board(config) if board.nil?
     board
   end
-
 end
-

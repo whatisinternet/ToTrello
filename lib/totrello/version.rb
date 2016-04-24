@@ -1,3 +1,3 @@
 module Totrello
-  VERSION = "0.3.05"
+  VERSION = '1.0.0'.freeze
 end

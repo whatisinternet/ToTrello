@@ -1,4 +1,4 @@
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 require 'pry'
 require 'dotenv'
 require 'vcr'
@@ -20,7 +20,6 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.allow_http_connections_when_no_cassette = true
 end
-
 
 # require 'totrello/totrello'
 require 'totrello'

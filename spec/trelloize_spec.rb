@@ -5,17 +5,15 @@ require 'totrello/todos'
 require 'digest/sha1'
 
 describe Trelloize do
-
   before(:all) do
     @test_dir = "#{Dir.pwd}/spec/fixtures"
-    @test_file = "fixture.rb"
+    @test_file = 'fixture.rb'
     @config = TrelloConfig.new
     @todos = Todos.new
     @todo = @todos.todos_for_file("#{@test_dir}/#{@test_file}", @config)[0]
   end
 
   describe 'description' do
-
     before(:each) do
       @trelloize = Trelloize.new
     end
@@ -31,7 +29,6 @@ describe Trelloize do
     it 'returns a string' do
       expect(@trelloize.description(@todo, @config)).to be_a(String)
     end
-
   end
 
   describe 'find_and_create_cards_from_todos' do
@@ -44,8 +41,9 @@ describe Trelloize do
     end
 
     it 'find_and_create_cards_from_todos accepts two arguments' do
-      expect(@trelloize).to respond_to(:find_and_create_cards_from_todos).with(2).arguments
+      expect(@trelloize).to respond_to(
+        :find_and_create_cards_from_todos
+      ).with(2).arguments
     end
   end
-
 end
