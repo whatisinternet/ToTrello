@@ -40,19 +40,20 @@ class TrelloBuilder
   def find_board(config)
     board_name = config.board_name
     trello_board = Trello::Board.all.find do |board|
-      board.name.upcase == board_name.upcase
+      board.name.upcase == board_name.upcase && !board.closed
     end
-    return if trello_board.nil?
+    return nil if trello_board.nil?
     Trello::Board.find(trello_board.id)
   end
 
   def find_list(board, list_name)
+    return unless board
     board.lists.find { |list| list.name == list_name }.id
   end
 
   def find_or_create_board(config)
     board = find_board(config)
-    return create_board(config) if board.nil?
+    board = create_board(config) if board.nil?
     board
   end
 

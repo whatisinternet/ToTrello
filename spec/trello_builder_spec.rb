@@ -11,13 +11,6 @@ describe TrelloBuilder do
     @config = TrelloConfig.new
   end
 
-  after(:all) do
-    @trello = TrelloBuilder.new
-    board = @trello.find_board(@config)
-    board.closed = true
-    board.save
-  end
-
   describe 'find_board' do
 
     before(:each) do
@@ -43,12 +36,6 @@ describe TrelloBuilder do
   describe 'create_board' do
     before(:each) do
       @trello = TrelloBuilder.new
-    end
-
-    after(:each) do
-      board = @trello.find_board(@config)
-      board.update_fields({closed: true})
-      board.save
     end
 
     it 'responds to create_board' do
