@@ -2,11 +2,9 @@
 [![Gem Version](https://badge.fury.io/rb/totrello.svg)](http://badge.fury.io/rb/totrello)
 [![Code Climate](https://codeclimate.com/github/whatisinternet/ToTrello/badges/gpa.svg)](https://codeclimate.com/github/whatisinternet/ToTrello)
 [![Test Coverage](https://codeclimate.com/github/whatisinternet/ToTrello/badges/coverage.svg)](https://codeclimate.com/github/whatisinternet/ToTrello)
-[![totrello API
-Documentation](https://www.omniref.com/ruby/gems/totrello.png)](https://www.omniref.com/ruby/gems/totrello)
 # Totrello
 
-TODO: Turns Todo items into Trello cards
+Turns Todo items into Trello cards
 
 ## Notes
 
@@ -66,6 +64,8 @@ The ToTrello yml file allows you to customize the way ToTrello functions:
     $ ToTrello [some other folder with full path]
 
 ## Contributing
+
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 1. Fork it ( https://github.com/whatisinternet/totrello/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
