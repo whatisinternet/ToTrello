@@ -1,12 +1,8 @@
 language: ruby
 rvm:
-- 2.2.0
-- 2.1.5
-- 2.1.2
-- 2.1.1
-- 2.0.0-p247
-- 1.9.3-p194
-script: gem install bundler && bundle exec rspec test/*
+- 2.3.0
+- 2.2.4
+script: gem install bundler && bundle exec rspec
 deploy:
   provider: rubygems
   api_key:

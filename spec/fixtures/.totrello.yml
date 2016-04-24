@@ -8,7 +8,4 @@ totrello:
           excludes: [
                     'pkg/',
                     'bin/',
-                    'lib/',
-                    'tmp',
-                    'spec'
                    ]
